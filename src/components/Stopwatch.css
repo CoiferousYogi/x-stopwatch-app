@@ -54,9 +54,9 @@ body {
 }
 
 .reset-btn {
-  background-color: hsl(205, 86%, 55%);
+  background-color: hsl(10, 90%, 40%);
 }
 
 .reset-btn:hover {
-  background-color: hsl(205, 86%, 50%);
+  background-color: hsl(10, 90%, 47%);
 }

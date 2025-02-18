@@ -46,13 +46,13 @@ const Stopwatch = () => {
   }
   return (
     <div className="stopwatch">
-      <div className="display">{formatTime()}</div>
+      <div className="display">Time: {formatTime()}</div>
       <div className="controls">
         <button className="start-btn" onClick={startStopwatch}>
           Start
         </button>
         <button className="reset-btn" onClick={resetStopwatch}>
-          Reset
+          Stop
         </button>
       </div>
     </div>
