@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./Stopwatch.css";
+import React, { useEffect, useState } from "react";
 
 const Stopwatch = () => {
   // functions to define the running state
@@ -8,25 +7,24 @@ const Stopwatch = () => {
   // function to calculate elapsed time
   const [elapsedTime, setElapsedTime] = useState(0);
 
-  const intervalIdRef = useRef(null);
-
-  const startTimeRef = useRef(0);
-
   useEffect(() => {
+    let intervalId;
+
     if (isRunning) {
-      intervalIdRef.current = setInterval(() => {
-        setElapsedTime(Date.now() - startTimeRef.current);
-      }, 10);
+      intervalId = setInterval(() => {
+        setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
+      }, 1000);
+    } else {
+      clearInterval(intervalId);
     }
 
     return () => {
-      clearInterval(intervalIdRef.current);
+      clearInterval(intervalId);
     };
   }, [isRunning]);
 
-  function startStopwatch() {
-    setIsRunning(true);
-    startTimeRef.current = Date.now() - elapsedTime;
+  function startStopStopwatch() {
+    setIsRunning((prevIsRunning) => !prevIsRunning);
   }
 
   function resetStopwatch() {
@@ -34,22 +32,19 @@ const Stopwatch = () => {
     setIsRunning(false);
   }
 
-  function formatTime() {
-    let minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
 
-    let seconds = Math.floor((elapsedTime / 1000) % 60);
-
-    minutes = String(minutes).padStart(2, "0");
-    seconds = String(seconds).padStart(2, "0");
-
-    return `${minutes}:${seconds}`;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   }
+
   return (
     <div className="stopwatch">
-      <div className="display">Time: {formatTime()}</div>
+      <div className="display">Time: {formatTime(elapsedTime)}</div>
       <div className="controls">
-        <button className="start-btn" onClick={startStopwatch}>
-          Start
+        <button className="start-btn" onClick={startStopStopwatch}>
+          {isRunning ? "Stop" : "Start"}
         </button>
         <button className="reset-btn" onClick={resetStopwatch}>
           Stop
