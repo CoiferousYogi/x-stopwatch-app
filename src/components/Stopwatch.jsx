@@ -47,7 +47,7 @@ const Stopwatch = () => {
           {isRunning ? "Stop" : "Start"}
         </button>
         <button className="reset-btn" onClick={resetStopwatch}>
-          Stop
+          Reset
         </button>
       </div>
     </div>
